@@ -16,12 +16,19 @@ public class ClientHandler extends IoHandlerAdapter{
 	@Override
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
+		Logs.debugLog.debug("message is " + message);
 		if(message instanceof ResLoginMessage){
 			ResLoginMessage msg = (ResLoginMessage) message;
 			Logs.debugLog.debug(msg.uid);
-			
 		}
 	}
+
+	@Override
+	public void messageSent(IoSession session, Object message) throws Exception {
+		Logs.debugLog.debug("messageSent");
+	}
+	
+	
 
 	
 }

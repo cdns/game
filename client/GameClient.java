@@ -8,7 +8,9 @@ import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
+import com.game.mina.code.DataPack;
 import com.game.mina.code.GProtocolCodecFactory;
+import com.game.util.SerializeUtil;
 import com.gs.login.message.MsgLoginKeyValue;
 import com.gs.login.message.ReqLoginMessage;
 
@@ -38,9 +40,12 @@ public class GameClient {
 		m.value = "zhangsan";
 		MsgLoginKeyValue[] ms = new MsgLoginKeyValue[1];
 		ms[0] = m;
-		ReqLoginMessage msg = new ReqLoginMessage();
-		msg.longins = ms;
-		msg.setMsgId(1001);
+		ReqLoginMessage req = new ReqLoginMessage();
+		req.longins = ms;
+		
+		DataPack msg = new DataPack();
+        msg.setMsgid(1001);
+        msg.setMsgBody(SerializeUtil.msgBodyToByte(req));
 		session.write(msg);
 	}
 	
